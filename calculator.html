@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link href="calculator.css" rel="stylesheet">
+    
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="inputBox" placeholder="0" disabled>
+        <div>
+            <button class="operator">AC</button>
+            <button class="operator">Del</button>
+            <button class="operator">%</button>
+            <button class="operator">/</button>
+        </div>
+        <div>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="operator">*</button>
+        </div>
+        <div>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class="operator">-</button>
+        </div>
+        <div>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="operator">+</button>
+        </div>
+        <div>
+            <button>00</button>
+            <button>0</button>
+            <button>.</button>
+            <button class="equalBtn">=</button>
+        </div>
+    </div>
+
+    <script>
+        let input = document.getElementById('inputBox');
+        let buttons = document.querySelectorAll('button');
+
+        let string = "";
+
+        buttons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const value = e.target.innerHTML.trim(); // Get button value
+                
+                // Clear input
+                if (value === 'AC') {
+                    string = "";
+                    input.value = "";
+                }
+                // Delete last character
+                else if (value === 'Del') {
+                    string = string.slice(0, -1);
+                    input.value = string;
+                }
+                // Evaluate expression
+                else if (value === '=') {
+                    try {
+                        string = eval(string).toString();
+                        input.value = string;
+                    } catch {
+                        input.value = "Error";
+                        string = "";
+                    }
+                }
+                // Handle regular button presses
+                else {
+                    string += value;
+                    input.value = string;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
